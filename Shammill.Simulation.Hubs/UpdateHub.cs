@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using System.Threading.Tasks;
 
-namespace Shammill.Simulation
+namespace Shammill.Simulation.Hubs
 {
     public class UpdateHub : Hub
     {

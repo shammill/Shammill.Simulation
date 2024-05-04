@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using Shammill.Simulation.Hubs;
 using System.Threading.Tasks;
 
 
@@ -17,21 +20,11 @@ namespace Shammill.Simulation
             // Add services to the container.
             builder.Services.AddSignalR();
             builder.Services.AddHostedService<SimulationRunner>();
-
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Error");
-            }
-
-            //app.UseHttpsRedirection();
-            //app.UseStaticFiles();
-            app.UseRouting();
 
             // Map SignalR Hub
-            app.MapHub<UpdateHub>("/chatHub");
+            app.MapHub<SignalRHub>("/signalr");
 
             app.Run();
         }
