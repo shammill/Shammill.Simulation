@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Shammill.Simulation.Content;
 using Shammill.Simulation.Hubs;
 using System;
@@ -32,8 +33,10 @@ namespace Shammill.Simulation
                 var message = $"Server time is: {DateTime.Now}";
                 await _hubContext.Clients.All.SendAsync("ReceiveMessage", "Server", message);
 
+                Console.WriteLine("tick");
+
                 // TODO TICK RATE (limit update rate.)
-                //await Task.Delay(1000, stoppingToken);
+                await Task.Delay(500, stoppingToken); // note: you HAVE TO delay or the signalr hub gets blocked.
             }
         }
     }
