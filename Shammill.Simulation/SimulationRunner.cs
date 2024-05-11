@@ -13,13 +13,13 @@ namespace Shammill.Simulation
 
     public class SimulationRunner : BackgroundService
     {
-        private readonly IHubContext<SignalRHub> _hubContext;
-        private SimArea _simArea;
+        private readonly IHubContext<SignalRHub> HubContext;
+        private SimArea SimArea;
 
         public SimulationRunner(IHubContext<SignalRHub> hubContext, SimArea simArea)
         {
-            _hubContext = hubContext;
-            _simArea = simArea;
+            HubContext = hubContext;
+            SimArea = simArea;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -29,25 +29,25 @@ namespace Shammill.Simulation
             {
                 stopWatch.Start();
                 // todo a queue of actions users are taking. which apply to sim objects.
-                foreach (var thing in _simArea.objects)
+                foreach (var thing in SimArea.objects)
                 {
                     thing.Update(1);
-                    await _hubContext.Clients.All.SendAsync("ReceiveMessage", thing);
-                    await _hubContext.Clients.All.SendAsync("ReceiveMessage", thing);
-                    await _hubContext.Clients.All.SendAsync("ReceiveMessage", thing);
-                    await _hubContext.Clients.All.SendAsync("ReceiveMessage", thing);
-                    await _hubContext.Clients.All.SendAsync("ReceiveMessage", thing);
-                    await _hubContext.Clients.All.SendAsync("ReceiveMessage", thing);
-                    await _hubContext.Clients.All.SendAsync("ReceiveMessage", thing);
-                    await _hubContext.Clients.All.SendAsync("ReceiveMessage", thing);
-                    await _hubContext.Clients.All.SendAsync("ReceiveMessage", thing);
-                    await _hubContext.Clients.All.SendAsync("ReceiveMessage", thing);
-                    await _hubContext.Clients.All.SendAsync("ReceiveMessage", thing);
-                    await _hubContext.Clients.All.SendAsync("ReceiveMessage", thing);
-                    await _hubContext.Clients.All.SendAsync("ReceiveMessage", thing);
-                    await _hubContext.Clients.All.SendAsync("ReceiveMessage", thing);
-                    await _hubContext.Clients.All.SendAsync("ReceiveMessage", thing);
-                    await _hubContext.Clients.All.SendAsync("ReceiveMessage", thing);
+                    await HubContext.Clients.All.SendAsync("ReceiveMessage", thing);
+                    await HubContext.Clients.All.SendAsync("ReceiveMessage", thing);
+                    await HubContext.Clients.All.SendAsync("ReceiveMessage", thing);
+                    await HubContext.Clients.All.SendAsync("ReceiveMessage", thing);
+                    await HubContext.Clients.All.SendAsync("ReceiveMessage", thing);
+                    await HubContext.Clients.All.SendAsync("ReceiveMessage", thing);
+                    await HubContext.Clients.All.SendAsync("ReceiveMessage", thing);
+                    await HubContext.Clients.All.SendAsync("ReceiveMessage", thing);
+                    await HubContext.Clients.All.SendAsync("ReceiveMessage", thing);
+                    await HubContext.Clients.All.SendAsync("ReceiveMessage", thing);
+                    await HubContext.Clients.All.SendAsync("ReceiveMessage", thing);
+                    await HubContext.Clients.All.SendAsync("ReceiveMessage", thing);
+                    await HubContext.Clients.All.SendAsync("ReceiveMessage", thing);
+                    await HubContext.Clients.All.SendAsync("ReceiveMessage", thing);
+                    await HubContext.Clients.All.SendAsync("ReceiveMessage", thing);
+                    await HubContext.Clients.All.SendAsync("ReceiveMessage", thing);
                 }
                 stopWatch.Stop();
                 var computeTime = stopWatch.Elapsed.Milliseconds;
