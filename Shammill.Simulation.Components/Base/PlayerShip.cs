@@ -5,13 +5,10 @@ namespace Shammill.Simulation.Components.Base
 {
     public class PlayerShip : SimulationObject
     {
-        // todo, this will be much more complex later (struct, hull, shields?)
-
-
         Guid Id;
         Guid UserId;
 
-        int Health;
+        int Health; // todo, this will be much more complex later (struct, hull, shields?)
         bool IsDead;
         bool IsDisabled;
 
@@ -19,6 +16,7 @@ namespace Shammill.Simulation.Components.Base
         {
             Id = id;
             UserId = userId;
+            Health = 100;
         }
 
         public override void Update(float deltaTime)

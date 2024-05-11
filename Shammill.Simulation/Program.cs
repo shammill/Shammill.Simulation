@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Shammill.Simulation.Content;
 using Shammill.Simulation.Hubs;
 using System.Threading.Tasks;
 
@@ -22,7 +23,11 @@ namespace Shammill.Simulation
 
             // Add services to the container.
             builder.Services.AddHostedService<SimulationRunner>();
-            builder.Services.AddSignalR();
+            builder.Services.AddSignalR().AddJsonProtocol(options => {
+                options.PayloadSerializerOptions.IncludeFields = true;
+                options.PayloadSerializerOptions.PropertyNamingPolicy = null;
+            });
+            builder.Services.AddSingleton(new SimArea());
 
             builder.Logging.AddConsole();
             builder.Logging.SetMinimumLevel(LogLevel.Trace);

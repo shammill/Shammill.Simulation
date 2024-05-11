@@ -16,7 +16,13 @@ namespace Shammill.Simulation.Components.Base
 
         public virtual void Update(float deltaTime)
         {
+            Console.WriteLine($"Updating {Id}");
             Transform.Update(deltaTime);
+        }
+
+        public string Serialize()
+        {
+            return "";
         }
     }
 }
