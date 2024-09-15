@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Shammill.Simulation.Content;
 using Shammill.Simulation.Hubs;
+using Shammill.Simulation.Models;
 using System.Threading.Tasks;
 
 
@@ -23,11 +24,25 @@ namespace Shammill.Simulation
 
             // Add services to the container.
             builder.Services.AddHostedService<SimulationRunner>();
-            builder.Services.AddSignalR().AddJsonProtocol(options => {
-                options.PayloadSerializerOptions.IncludeFields = true;
-                options.PayloadSerializerOptions.PropertyNamingPolicy = null;
-            });
+            builder.Services.AddSignalR()
+                .AddMessagePackProtocol(
+                //options =>
+                    //options.SerializerOptions
+                )
+                .AddHubOptions<SignalRHub>(options => {
+                   // options.
+                })
+                
+                //.AddJsonProtocol(options =>
+                //{
+                //    options.PayloadSerializerOptions.IncludeFields = true;
+                //    options.PayloadSerializerOptions.PropertyNamingPolicy = null;
+                //}
+                //)
+                ;
+
             builder.Services.AddSingleton(new SimArea());
+            builder.Services.AddSingleton(new Actions());
 
             builder.Logging.AddConsole();
             builder.Logging.SetMinimumLevel(LogLevel.Trace);

@@ -14,7 +14,7 @@ namespace Shammill.Simulation.Components.GameMath
             this.Direction = direction;
         }
 
-        private bool RayIsParallel(float normalisedAxisPoint)
+        private bool IsParallelTo(float normalisedAxisPoint)
         {
             return Math.Abs(normalisedAxisPoint) < Constants.PracticallyZero; // ray is not moving on the axis
         }
@@ -33,7 +33,7 @@ namespace Shammill.Simulation.Components.GameMath
             var distance = 0f;
             float maxDistance = float.MaxValue;
 
-            if (RayIsParallel(ray.Direction.X) && IsOutsideOf(ray.Position.X, box.Minimum.X, box.Maximum.X))
+            if (IsParallelTo(ray.Direction.X) && IsOutsideOf(ray.Position.X, box.Minimum.X, box.Maximum.X))
             {
                 return false;
             }
@@ -60,7 +60,7 @@ namespace Shammill.Simulation.Components.GameMath
                 }
             }
 
-            if (RayIsParallel(ray.Direction.Y) && IsOutsideOf(ray.Position.Y, box.Minimum.Y, box.Maximum.Y))
+            if (IsParallelTo(ray.Direction.Y) && IsOutsideOf(ray.Position.Y, box.Minimum.Y, box.Maximum.Y))
             {
                 return false;
             }
@@ -86,7 +86,7 @@ namespace Shammill.Simulation.Components.GameMath
                 }
             }
 
-            if (RayIsParallel(ray.Direction.Z) && IsOutsideOf(ray.Position.Z, box.Minimum.Z, box.Maximum.Z))
+            if (IsParallelTo(ray.Direction.Z) && IsOutsideOf(ray.Position.Z, box.Minimum.Z, box.Maximum.Z))
             {
                 return false;
             }

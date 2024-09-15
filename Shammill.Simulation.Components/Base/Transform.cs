@@ -5,6 +5,7 @@ namespace Shammill.Simulation.Components.Base
     public class Transform
     {
         // might need double precision Vector3, if so use 3rd party package (.NET aint there yet.)
+        // given that float.MaxValue.ToString("#") is 340282300000000000000000000000000000000, I think we're ok, just have to manage the game space boundaries.
         public Vector3 Position;
         public Vector3 Rotation;
         public Vector3 Velocity;

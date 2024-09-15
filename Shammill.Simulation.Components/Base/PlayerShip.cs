@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Shammill.Simulation.Components.Behaviours;
+using System;
 using System.Numerics;
 
 namespace Shammill.Simulation.Components.Base
 {
     public class PlayerShip : SimulationObject
     {
+        public DamagableBehavior DamagableBehavior;
+
         Guid Id;
         Guid UserId;
 
@@ -18,6 +21,21 @@ namespace Shammill.Simulation.Components.Base
             UserId = userId;
             Health = 100;
         }
+
+        public void CalculateDamage() 
+        {
+            // TODO pass in maybe weapon type, ship will have resitances, armour, etc.
+        }
+
+        public void TakeDamage(int damage)
+        {
+            Health = Health - damage;
+            if (Health <= 0)
+            {
+                IsDead = true; // TODO death event. Maybe handled in loop.
+            }
+        }
+
 
         public override void Update(float deltaTime)
         {

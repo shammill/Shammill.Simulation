@@ -4,13 +4,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Shammill.LobbyManager.Hubs.Notifiers;
 using Shammill.Simulation.Components.Base;
+using Shammill.Simulation.Content;
+using Shammill.Simulation.Models;
 
 namespace Shammill.Simulation.Hubs
 {
     public class SignalRHub : Hub
     {
-        public SignalRHub() : base()
+        private Actions Actions;
+        public SignalRHub(Actions actions) : base()
         {
+            Actions = actions;
         }
 
         public override async Task OnConnectedAsync()
