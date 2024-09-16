@@ -35,8 +35,13 @@ namespace Shammill.Simulation
             while (!stoppingToken.IsCancellationRequested)
             {
                 stopWatch.Start();
-                foreach (var action in Actions.Queue)
+
+                var actionsCount = 0;
+                if (Actions.Queue.Count > 0)
+                    actionsCount = Actions.Queue.Count;
+                while (actionsCount > 0)
                 {
+                    var action = Actions.Queue.Dequeue();
                     if (action.Type == ActionType.None)
                     {
 
@@ -46,23 +51,17 @@ namespace Shammill.Simulation
                         var actor = SimArea.objects.Where(x => x.Id == action.ActorId).FirstOrDefault();
                         if (actor != null)
                         {
-                            // for now lets just teleport to client coords, will do move advanced stuff later.
+                            // for now lets just teleport to client coords and rotation, will do move advanced stuff later.
                             // Also want to check for speedhack by checking speed is within range.
-                            // probably need the whole transform. TODO.
-                            actor.Transform.Position = action.Position;
+                            Console.WriteLine($"Applying movement to {action.ActorId}, {action.Transform.Position}");
+                            actor.Transform = action.Transform;
                         }
                     }
                     else if (action.Type == ActionType.Item)
                     {
 
                     }
-
-                    //var subject = SimArea.objects.FirstOrDefault(x => x.Id == action.SubjectId);
-                    //if (subject.GetType() == typeof(PlayerShip))
-                    //{
-
-                    //}
-                    // TODO apply action to thing.
+                    actionsCount = actionsCount - 1;
                 }
 
                 // Per item send update to each client - unoptimized, will bundle multiple objects into single update.
@@ -70,22 +69,22 @@ namespace Shammill.Simulation
                 foreach (var entity in SimArea.objects)
                 {
                     entity.Update(1);
-                    await HubContext.Clients.All.SendAsync("ReceiveMessage", entity);
-                    await HubContext.Clients.All.SendAsync("ReceiveMessage", entity);
-                    await HubContext.Clients.All.SendAsync("ReceiveMessage", entity);
-                    await HubContext.Clients.All.SendAsync("ReceiveMessage", entity);
-                    await HubContext.Clients.All.SendAsync("ReceiveMessage", entity);
-                    await HubContext.Clients.All.SendAsync("ReceiveMessage", entity);
-                    await HubContext.Clients.All.SendAsync("ReceiveMessage", entity);
-                    await HubContext.Clients.All.SendAsync("ReceiveMessage", entity);
-                    await HubContext.Clients.All.SendAsync("ReceiveMessage", entity);
-                    await HubContext.Clients.All.SendAsync("ReceiveMessage", entity);
-                    await HubContext.Clients.All.SendAsync("ReceiveMessage", entity);
-                    await HubContext.Clients.All.SendAsync("ReceiveMessage", entity);
-                    await HubContext.Clients.All.SendAsync("ReceiveMessage", entity);
-                    await HubContext.Clients.All.SendAsync("ReceiveMessage", entity);
-                    await HubContext.Clients.All.SendAsync("ReceiveMessage", entity);
-                    await HubContext.Clients.All.SendAsync("ReceiveMessage", entity);
+                    await HubContext.Clients.All.SendAsync("1", entity);
+                    await HubContext.Clients.All.SendAsync("1", entity);
+                    await HubContext.Clients.All.SendAsync("1", entity);
+                    await HubContext.Clients.All.SendAsync("1", entity);
+                    await HubContext.Clients.All.SendAsync("1", entity);
+                    await HubContext.Clients.All.SendAsync("1", entity);
+                    await HubContext.Clients.All.SendAsync("1", entity);
+                    await HubContext.Clients.All.SendAsync("1", entity);
+                    await HubContext.Clients.All.SendAsync("1", entity);
+                    await HubContext.Clients.All.SendAsync("1", entity);
+                    await HubContext.Clients.All.SendAsync("1", entity);
+                    await HubContext.Clients.All.SendAsync("1", entity);
+                    await HubContext.Clients.All.SendAsync("1", entity);
+                    await HubContext.Clients.All.SendAsync("1", entity);
+                    await HubContext.Clients.All.SendAsync("1", entity);
+                    await HubContext.Clients.All.SendAsync("1", entity);
                 }
 
                 var computeTimeMs = stopWatch.Elapsed.Milliseconds;
@@ -98,7 +97,7 @@ namespace Shammill.Simulation
                 count++;
                 Console.WriteLine($"Count: {count}");
 
-                var delay = 500 - computeTimeMs;
+                var delay = 250 - computeTimeMs;
                 if (delay < 0)
                     continue;
                 else
