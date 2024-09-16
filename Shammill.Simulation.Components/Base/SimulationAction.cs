@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shammill.Simulation.Components.Base;
+using System;
 using System.Numerics;
 
 namespace Shammill.Simulation.Components
@@ -9,7 +10,7 @@ namespace Shammill.Simulation.Components
         public Guid SubjectId { get; set; }
         public ActionType Type { get; set; }
         public int Gear { get; set; }
-        public Vector3 Position { get; set; } // probably need the whole transform. TODO.
+        public Transform Transform { get; set; }
 
     }
 

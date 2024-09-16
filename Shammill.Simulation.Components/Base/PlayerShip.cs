@@ -1,23 +1,25 @@
-﻿using Shammill.Simulation.Components.Behaviours;
+﻿using MessagePack;
+using Shammill.Simulation.Components.Behaviours;
 using System;
 using System.Numerics;
 
 namespace Shammill.Simulation.Components.Base
 {
+    [MessagePackObject(keyAsPropertyName: true)] // TODO remove this, and have explicit keys (performance)
     public class PlayerShip : SimulationObject
     {
-        public DamagableBehavior DamagableBehavior;
+        //public DamagableBehavior DamagableBehavior;
 
-        Guid Id;
-        Guid UserId;
+        //public Guid Id;
+        public Guid UserId;
 
-        int Health; // todo, this will be much more complex later (struct, hull, shields?)
-        bool IsDead;
-        bool IsDisabled;
+        public int Health; // todo, this will be much more complex later (struct, hull, shields?)
+        public bool IsDead;
+        public bool IsDisabled;
 
         public PlayerShip(Guid id, Guid userId, Transform transform) : base(id, transform)
         {
-            Id = id;
+           // Id = id;
             UserId = userId;
             Health = 100;
         }

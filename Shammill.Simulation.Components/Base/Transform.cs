@@ -1,7 +1,9 @@
-﻿using System.Numerics;
+﻿using MessagePack;
+using System.Numerics;
 
 namespace Shammill.Simulation.Components.Base
 {
+    [MessagePackObject(keyAsPropertyName: true)]
     public class Transform
     {
         // might need double precision Vector3, if so use 3rd party package (.NET aint there yet.)

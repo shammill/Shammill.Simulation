@@ -1,10 +1,14 @@
-**A real-time simulation with a SignalR interface**
+**A real-time simulation/game server with a SignalR interface**
 
 Current Functionality: 
-* Simulation framework
+* Basic simulation framework.
+* SignalR Hub
+* BackGroundService running the sim.
+* Object transform (postion, rotation, etc) sync between client and server.
 
 Future Development:
 * Simulation components (movement, activities, etc)
-* SignalR Interface
-* SignalR Client
+* Client (currently using a basic console app as a client)
 
+
+Note: this is just a fun hobby project and somewhat messy and haphazard as I am not a game dev.
