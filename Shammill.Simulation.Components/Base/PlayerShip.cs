@@ -1,6 +1,7 @@
 ﻿using MessagePack;
 using Shammill.Simulation.Components.Behaviours;
 using System;
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace Shammill.Simulation.Components.Base
@@ -16,6 +17,8 @@ namespace Shammill.Simulation.Components.Base
         public int Health; // todo, this will be much more complex later (struct, hull, shields?)
         public bool IsDead;
         public bool IsDisabled;
+
+        public List<Equipment> Equipment;
 
         public PlayerShip(Guid id, Guid userId, Transform transform) : base(id, transform)
         {

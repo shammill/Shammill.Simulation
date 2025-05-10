@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using MessagePack;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
@@ -26,13 +27,14 @@ namespace Shammill.Simulation
             builder.Services.AddHostedService<SimulationRunner>();
             builder.Services.AddSignalR()
                 .AddMessagePackProtocol(
-                //options =>
-                    //options.SerializerOptions
+                    options =>
+                    options.SerializerOptions = MessagePackSerializerOptions.Standard
                 )
-                .AddHubOptions<SignalRHub>(options => {
-                   // options.
+                .AddHubOptions<SignalRHub>(options =>
+                {
+                    // options.
                 })
-                
+
                 //.AddJsonProtocol(options =>
                 //{
                 //    options.PayloadSerializerOptions.IncludeFields = true;
@@ -41,8 +43,8 @@ namespace Shammill.Simulation
                 //)
                 ;
 
-            builder.Services.AddSingleton(new SimArea());
-            builder.Services.AddSingleton(new Actions());
+            builder.Services.AddSingleton<SimArea>();
+            builder.Services.AddSingleton<Actions>();
 
             builder.Logging.AddConsole();
             builder.Logging.SetMinimumLevel(LogLevel.Trace);
